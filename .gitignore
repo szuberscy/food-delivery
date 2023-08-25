@@ -36,9 +36,6 @@ cmake-build-*/
 # File-based project format
 *.iws
 
-# IntelliJ
-out/
-
 # mpeltonen/sbt-idea plugin
 .idea_modules/
 
@@ -248,6 +245,7 @@ web_modules/
 # Next.js build output
 .next
 out
+!**/port/out
 
 # Nuxt.js build / generate output
 .nuxt
