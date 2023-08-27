@@ -7,6 +7,7 @@ val koin_version: String by project
 val junit_version: String by project
 val arrow_version: String by project
 val avro_version: String by project
+val avro_serializer_version: String by project
 val kafka_version: String by project
 val kotlinlogging_version: String by project
 
@@ -67,16 +68,14 @@ dependencies {
     implementation("io.ktor:ktor-server-call-logging")
     implementation("io.ktor:ktor-server-double-receive")
     implementation("ch.qos.logback:logback-classic:$logback_version")
+    implementation("io.github.oshai:kotlin-logging-jvm:$kotlinlogging_version")
     implementation("io.insert-koin:koin-core:$koin_version")
     implementation("io.insert-koin:koin-ktor:$koin_version")
     implementation("io.arrow-kt:arrow-core:$arrow_version")
     implementation("io.arrow-kt:arrow-fx-coroutines:$arrow_version")
-    implementation("org.apache.avro:avro:$avro_version")
     implementation("org.apache.kafka:kafka-clients:$kafka_version")
-    implementation("io.confluent:kafka-avro-serializer:7.4.0")
-    implementation("io.github.oshai:kotlin-logging-jvm:$kotlinlogging_version")
-    implementation("io.ktor:ktor-server-double-receive-jvm:2.3.3")
-    implementation("io.ktor:ktor-server-call-logging-jvm:2.3.3")
+    implementation("org.apache.avro:avro:$avro_version")
+    implementation("io.confluent:kafka-avro-serializer:${avro_serializer_version}")
     testImplementation("io.ktor:ktor-server-tests-jvm")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version")
     testImplementation("org.junit.jupiter:junit-jupiter-api:$junit_version")
