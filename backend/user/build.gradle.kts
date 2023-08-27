@@ -76,6 +76,7 @@ dependencies {
     implementation("io.confluent:kafka-avro-serializer:7.4.0")
     implementation("io.github.oshai:kotlin-logging-jvm:$kotlinlogging_version")
     implementation("io.ktor:ktor-server-double-receive-jvm:2.3.3")
+    implementation("io.ktor:ktor-server-call-logging-jvm:2.3.3")
     testImplementation("io.ktor:ktor-server-tests-jvm")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version")
     testImplementation("org.junit.jupiter:junit-jupiter-api:$junit_version")

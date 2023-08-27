@@ -11,7 +11,6 @@ import io.ktor.server.application.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
-import kotlin.random.Random
 
 private val log = KotlinLogging.logger {}
 private const val BASE_API_ROUTE = "v1"
@@ -22,11 +21,6 @@ fun Route.userRouting(registerUserUseCase: RegisterUserUseCase) {
             post {
                 try {
                     val userRegistrationRequest = call.receive<RegisterUser.Request>()
-
-                    if (Random.nextInt(5) % 5 == 0) {
-                        throw Exception("random exception")
-                    }
-
                     val (name, surname, email) = userRegistrationRequest
                     val registeredUser = registerUserUseCase.registerUser(name, surname, email)
                     call.respond(HttpStatusCode.Created, RegisterUser.Response.fromUser(registeredUser))
