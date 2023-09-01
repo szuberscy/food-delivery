@@ -18,5 +18,5 @@ class UserInMemoryStorage : SaveUserPort {
     }
 
     private fun containsWithEmail(email: String) =
-        storage.values.any { it.surname == email }
+        storage.values.any { it.email == email }
 }

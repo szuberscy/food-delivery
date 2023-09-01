@@ -3,6 +3,7 @@ package com.fszuberski.fooddelivery.registration.core.domain
 import com.fszuberski.fooddelivery.registration.common.ValidationError
 import com.fszuberski.fooddelivery.registration.common.ensure
 import com.fszuberski.fooddelivery.registration.common.validate
+import org.apache.commons.validator.routines.EmailValidator
 import java.util.*
 
 data class User(
@@ -17,7 +18,7 @@ data class User(
         validate(
             ensure(name.trim().isNotBlank()) { ValidationError("name cannot be blank") },
             ensure(surname.trim().isNotBlank()) { ValidationError("surname cannot be blank") },
-            ensure(email.trim().isNotBlank()) { ValidationError("email cannot be blank") }
+            ensure(EmailValidator.getInstance().isValid(email.trim())) { ValidationError("invalid email") }
         )
     }
 }

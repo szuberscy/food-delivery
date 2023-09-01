@@ -67,11 +67,12 @@ private suspend fun ApplicationCall.print(include: Include, format: Format) =
             if (responseBody) appendLine("\tBody: // TODO")  // TODO: response body
             if (elapsedTime) appendLine("\n\tElapsed time: ${processingTimeMillis()}ms")
 
-        }
-        else if (format == Format.CONCISE){
+        } else if (format == Format.CONCISE) {
             appendLine("Incoming HTTP request")
             append(">>> ${request.httpMethod.value} ${if (fullUrl) request.url() else request.path()}")
-            if (queryParameters) append("?${request.queryString()}")
+            if (queryParameters) request.queryString().let {
+                if (it.isNotBlank()) append("?${request.queryString()}")
+            }
             if (requestHeaders) append(" ${request.headers.humanReadable()}")
             if (requestBody) append(" ${receiveText()}")
             appendLine()
