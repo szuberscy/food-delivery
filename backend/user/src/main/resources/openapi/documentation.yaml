@@ -1,0 +1,92 @@
+openapi: "3.0.3"
+info:
+  title: "FoodDelivery Users API"
+  description: "FoodDelivery Users API"
+  version: "1.0.0"
+servers:
+  - url: "http://localhost:8080"
+paths:
+  /v1/users:
+    post:
+      description: "Registers a new user"
+      requestBody:
+        content:
+          'application/json':
+            schema:
+              $ref: "#/components/schemas/UserRegistrationRequest"
+            example:
+              name: Matt
+              surname: Hancock
+              email: matt@gov.co.uk
+        required: true
+      responses:
+        "201":
+          description: "Created"
+          content:
+            'application/json':
+              schema:
+                $ref: "#/components/schemas/UserRegistrationResponse"
+              example:
+                id: 84301a15-0d9e-4fee-8b92-c3efa97b5fc9
+        "400":
+          description: "Bad Request"
+          content:
+            'application/json':
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+              example:
+                message: "validation exception"
+                errors: [
+                  "surname cannot be blank",
+                  "invalid email"
+                ]
+        "409":
+          description: "Conflict"
+          content:
+            'application/json':
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+              example:
+                message: "invalid registration request"
+                errors: [
+                  "user with email exists"
+                ]
+        "415":
+          $ref: "#/components/responses/415_UnsupportedMediaType"
+        "500":
+          $ref: "#/components/responses/500_InternalServerError"
+components:
+  responses:
+    415_UnsupportedMediaType:
+      description: "Unsupported Media Type"
+    500_InternalServerError:
+      description: "Internal Server Error"
+  schemas:
+    UserRegistrationRequest:
+      type: "object"
+      properties:
+        name:
+          type: "string"
+          required: true
+        surname:
+          type: "string"
+          required: true
+        email:
+          type: "string"
+          required: true
+    UserRegistrationResponse:
+      type: "object"
+      properties:
+        id:
+          type: "string"
+          description: "UUIDv4"
+          required: true
+    ErrorResponse:
+      type: "object"
+      properties:
+        message:
+          type: "string"
+        errors:
+          type: "array"
+          items:
+            type: "string"
