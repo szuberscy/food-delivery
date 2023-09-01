@@ -67,7 +67,6 @@ dependencies {
     implementation("io.ktor:ktor-server-netty-jvm")
     implementation("io.ktor:ktor-server-call-logging")
     implementation("io.ktor:ktor-server-double-receive")
-    implementation("io.ktor:ktor-server-openapi")
     implementation("ch.qos.logback:logback-classic:$logback_version")
     implementation("io.github.oshai:kotlin-logging-jvm:$kotlinlogging_version")
     implementation("io.insert-koin:koin-core:$koin_version")
