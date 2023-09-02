@@ -19,8 +19,10 @@ class UserRegistration(
             ensure(name.trim().isNotBlank()) { ValidationError("name cannot be blank") },
             ensure(surname.trim().isNotBlank()) { ValidationError("surname cannot be blank") },
             ensure(EmailValidator.getInstance().isValid(email.trim())) { ValidationError("invalid email") },
-            // TODO: validate password
-            ensure(password.trim().isNotBlank()) { ValidationError("password cannot be blank") },
+
+            ensure(password.trim().length >= 8) { ValidationError("password must contain at least 8 characters") },
+            ensure(password.trim().contains(Regex("[a-zA-Z]"))) { ValidationError("password must contain at least one letter")},
+            ensure(password.trim().contains(Regex("\\d"))) { ValidationError("password must contain at least one digit") },
         )
 
         passwordHash = BCrypt.hashpw(password.trim(), BCrypt.gensalt())
