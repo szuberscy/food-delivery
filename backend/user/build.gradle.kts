@@ -74,6 +74,7 @@ dependencies {
     implementation("io.arrow-kt:arrow-core:$arrow_version")
     implementation("io.arrow-kt:arrow-fx-coroutines:$arrow_version")
     implementation("commons-validator:commons-validator:1.7")
+    implementation("org.mindrot:jbcrypt:0.4")
     implementation("org.apache.kafka:kafka-clients:$kafka_version")
     implementation("org.apache.avro:avro:$avro_version")
     implementation("io.confluent:kafka-avro-serializer:${avro_serializer_version}")

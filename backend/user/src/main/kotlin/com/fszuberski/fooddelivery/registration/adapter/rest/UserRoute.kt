@@ -24,9 +24,9 @@ fun Route.userRouting(registerUserUseCase: RegisterUserUseCase) {
                     runBlocking {
                         try {
                             val userRegistrationRequest = call.receive<RegisterUser.Request>()
-                            val (name, surname, email) = userRegistrationRequest
-                            val registeredUser = registerUserUseCase.registerUser(name, surname, email)
-                            call.respond(HttpStatusCode.Created, RegisterUser.Response.fromUser(registeredUser))
+                            val (name, surname, email, password) = userRegistrationRequest
+                            val uuid = registerUserUseCase.registerUser(name, surname, email, password)
+                            call.respond(HttpStatusCode.Created, RegisterUser.Response(uuid.toString()))
                         } catch (e: Exception) {
                             when (e) {
                                 is UserWithEmailExists -> {

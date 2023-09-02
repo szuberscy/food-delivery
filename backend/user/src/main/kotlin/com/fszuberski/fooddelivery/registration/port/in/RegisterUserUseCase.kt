@@ -1,7 +1,7 @@
 package com.fszuberski.fooddelivery.registration.port.`in`
 
-import com.fszuberski.fooddelivery.registration.core.domain.User
+import java.util.UUID
 
 interface RegisterUserUseCase {
-    fun registerUser(name: String, surname: String, email: String): User
+    fun registerUser(name: String, surname: String, email: String, password: String): UUID
 }

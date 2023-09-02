@@ -1,24 +1,25 @@
 package com.fszuberski.fooddelivery.registration.adapter.kafka
 
-import com.fszuberski.fooddelivery.registration.core.domain.User
+import com.fszuberski.fooddelivery.registration.core.domain.UserRegistration
 import com.fszuberski.fooddelivery.user.UserCreatedEvent
 import com.fszuberski.fooddelivery.registration.port.out.ProduceUserCreatedPort
 import io.github.oshai.kotlinlogging.KotlinLogging
 import org.apache.kafka.clients.producer.ProducerRecord
 import org.apache.kafka.clients.producer.RecordMetadata
+import java.util.*
 
 private val log = KotlinLogging.logger {}
 private const val TOPIC_NAME = "user-events"
 
 class UserEventsProducer : ProduceUserCreatedPort {
-    override fun produceUserCreatedEvent(user: User) {
+    override fun produceUserCreatedEvent(userId: UUID, userRegistration: UserRegistration) {
         // TODO: immediately closes the producer once a message is produced.
         // Could be cached so we don't reestablish connections.
         Configuration.producer().use { producer ->
             try {
-                val userCreatedEvent = UserCreatedEvent(user.id.toString(), user.name, user.surname)
+                val userCreatedEvent = UserCreatedEvent(userId.toString(), userRegistration.name, userRegistration.surname)
                 producer.send(
-                    ProducerRecord(TOPIC_NAME, user.id.toString(), userCreatedEvent)
+                    ProducerRecord(TOPIC_NAME, userId.toString(), userCreatedEvent)
                 ) { meta: RecordMetadata, e: Exception? ->
                     when (e) {
                         null -> log.info { "Produced record to topic ${meta.topic()} partition [${meta.partition()}] @ offset ${meta.offset()}" }

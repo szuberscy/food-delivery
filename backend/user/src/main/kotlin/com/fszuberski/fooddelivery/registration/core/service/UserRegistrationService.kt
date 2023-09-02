@@ -1,21 +1,23 @@
 package com.fszuberski.fooddelivery.registration.core.service
 
-import com.fszuberski.fooddelivery.registration.core.domain.User
+import com.fszuberski.fooddelivery.registration.core.domain.UserRegistration
 import com.fszuberski.fooddelivery.registration.port.`in`.RegisterUserUseCase
 import com.fszuberski.fooddelivery.registration.port.out.ProduceUserCreatedPort
 import com.fszuberski.fooddelivery.registration.port.out.SaveUserPort
+import java.util.*
 
-class UserService(
+class UserRegistrationService(
     private val saveUserPort: SaveUserPort,
     private val produceUserCreatedPort: ProduceUserCreatedPort
 ) : RegisterUserUseCase {
-    override fun registerUser(name: String, surname: String, email: String): User {
-        val user = User(name, surname, email)
+    override fun registerUser(name: String, surname: String, email: String, password: String): UUID {
+
+        val userRegistration = UserRegistration(name, surname, email, password)
 
         // TODO: outbox pattern
-        saveUserPort.save(user)
+        val uuid = saveUserPort.save(userRegistration)
 //        produceUserCreatedPort.produceUserCreatedEvent(user)
 
-        return user
+        return uuid
     }
 }

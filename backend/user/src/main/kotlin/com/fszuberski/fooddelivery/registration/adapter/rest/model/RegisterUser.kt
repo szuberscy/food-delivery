@@ -1,6 +1,5 @@
 package com.fszuberski.fooddelivery.registration.adapter.rest.model
 
-import com.fszuberski.fooddelivery.registration.core.domain.User
 import kotlinx.serialization.Serializable
 
 class RegisterUser {
@@ -9,13 +8,10 @@ class RegisterUser {
     data class Request(
         val name: String = "",
         val surname: String = "",
-        val email: String = ""
+        val email: String = "",
+        val password: String
     )
 
     @Serializable
-    data class Response(val id: String) {
-        companion object {
-            fun fromUser(user: User) = Response(user.id.toString())
-        }
-    }
+    data class Response(val id: String)
 }
