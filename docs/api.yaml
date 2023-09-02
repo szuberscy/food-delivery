@@ -1,14 +1,27 @@
 openapi: "3.0.3"
 info:
-  title: "FoodDelivery Users API"
-  description: "FoodDelivery Users API"
+  title: "FoodDelivery API"
+  description: "FoodDelivery API"
   version: "1.0.0"
 servers:
   - url: "http://localhost:8080"
 paths:
   /v1/users:
     post:
-      description: "Registers a new user"
+      description: |
+        Registers a new user. 
+        
+        Validation rules:
+          - name:
+            - cannot be blank
+          - surname:
+            - cannot be blank
+          - email:
+            - must be valid email address
+          - password:
+            - must contain at least 8 characters
+            - must contain at least one letter
+            - must contain at least one digit
       requestBody:
         content:
           'application/json':
@@ -37,8 +50,12 @@ paths:
               example:
                 message: "validation exception"
                 errors: [
+                  "name cannot be blank",
                   "surname cannot be blank",
-                  "invalid email"
+                  "invalid email",
+                  "password must contain at least 8 characters",
+                  "password must contain at least one letter",
+                  "password must contain at least one digit"
                 ]
         "409":
           description: "Conflict"
@@ -67,20 +84,25 @@ components:
       properties:
         name:
           type: "string"
-          required: true
         surname:
           type: "string"
-          required: true
         email:
           type: "string"
-          required: true
+        password:
+          type: "string"
+      required:
+        - name
+        - surname
+        - email
+        - password
     UserRegistrationResponse:
       type: "object"
       properties:
         id:
           type: "string"
           description: "UUIDv4"
-          required: true
+      required:
+        - id
     ErrorResponse:
       type: "object"
       properties:
@@ -90,3 +112,6 @@ components:
           type: "array"
           items:
             type: "string"
+      required:
+        - message
+        - errors
