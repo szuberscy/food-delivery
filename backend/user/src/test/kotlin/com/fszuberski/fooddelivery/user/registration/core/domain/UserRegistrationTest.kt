@@ -1,7 +1,6 @@
 package com.fszuberski.fooddelivery.user.registration.core.domain
 
-import com.fszuberski.fooddelivery.user.registration.common.ValidationException
-import com.fszuberski.fooddelivery.user.registration.core.domain.UserRegistration
+import com.fszuberski.fooddelivery.common.validation.ValidationException
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import kotlin.test.assertEquals

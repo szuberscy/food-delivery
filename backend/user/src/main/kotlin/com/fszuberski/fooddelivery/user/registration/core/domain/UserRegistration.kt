@@ -1,8 +1,8 @@
 package com.fszuberski.fooddelivery.user.registration.core.domain
 
-import com.fszuberski.fooddelivery.user.registration.common.ValidationError
-import com.fszuberski.fooddelivery.user.registration.common.ensure
-import com.fszuberski.fooddelivery.user.registration.common.validate
+import com.fszuberski.fooddelivery.common.validation.ValidationError
+import com.fszuberski.fooddelivery.common.validation.ensure
+import com.fszuberski.fooddelivery.common.validation.validate
 import org.apache.commons.validator.routines.EmailValidator
 import org.mindrot.jbcrypt.BCrypt
 

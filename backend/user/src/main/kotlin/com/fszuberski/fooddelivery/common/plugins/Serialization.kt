@@ -1,4 +1,4 @@
-package com.fszuberski.fooddelivery.user.registration.common.plugins
+package com.fszuberski.fooddelivery.common.plugins
 
 import io.ktor.serialization.kotlinx.json.*
 import io.ktor.server.application.*

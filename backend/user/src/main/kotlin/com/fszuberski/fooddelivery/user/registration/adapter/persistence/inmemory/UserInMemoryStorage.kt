@@ -7,6 +7,7 @@ import java.util.*
 
 // Naive in-memory storage implementation, not thread safe.
 class UserInMemoryStorage : SaveUserPort {
+    // TODO: real db
     private val storage = mutableMapOf<UUID, UserRegistration>()
 
     override fun save(userRegistration: UserRegistration): UUID {

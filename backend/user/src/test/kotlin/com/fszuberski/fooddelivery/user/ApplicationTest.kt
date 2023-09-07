@@ -1,6 +1,6 @@
 package com.fszuberski.fooddelivery.user
 
-import com.fszuberski.fooddelivery.user.registration.common.plugins.configureRouting
+import com.fszuberski.fooddelivery.common.plugins.configureRouting
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
 import io.ktor.http.*

@@ -1,6 +1,6 @@
-package com.fszuberski.fooddelivery.user.registration.common.plugins
+package com.fszuberski.fooddelivery.common.plugins
 
-import com.fszuberski.fooddelivery.user.appModule
+import com.fszuberski.fooddelivery.appModule
 import io.ktor.server.application.*
 import org.koin.core.module.Module
 import org.koin.ktor.plugin.Koin

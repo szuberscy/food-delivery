@@ -1,4 +1,4 @@
-package com.fszuberski.fooddelivery.user.registration.common
+package com.fszuberski.fooddelivery.common.validation
 
 import arrow.core.Either
 import arrow.core.Either.Left
