@@ -16,10 +16,8 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import kotlinx.coroutines.runBlocking
 import java.io.File
-import java.security.KeyFactory
 import java.security.interfaces.RSAPrivateKey
 import java.security.interfaces.RSAPublicKey
-import java.security.spec.PKCS8EncodedKeySpec
 import java.util.*
 
 private const val BASE_API_ROUTE = "v1"
@@ -37,11 +35,8 @@ fun Route.sessionRouting(jwtAuth: JWTAuth, userAuthenticationQuery: UserAuthenti
                             val authenticationResult =
                                 userAuthenticationQuery.getAuthenticationResult(username, password)
 
-                            val publicKey = jwtAuth.jwkProvider.get(jwtAuth.kid).publicKey // todo - create method in jwtauth for this
-//                            val publicKey = jwtAuth.publicKey
-//                            val keySpecPKCS8 = PKCS8EncodedKeySpec(Base64.getDecoder().decode(jwtAuth.privateKey))
-                            val keySpecPKCS8 = PKCS8EncodedKeySpec(jwtAuth.privateKey.toByteArray())
-                            val privateKey = KeyFactory.getInstance("RSA").generatePrivate(keySpecPKCS8)
+                            val publicKey = jwtAuth.publicKey()
+                            val privateKey = jwtAuth.privateKey()
                             val token = JWT.create()
                                 .withAudience(jwtAuth.audience)
                                 .withIssuer(jwtAuth.issuer)
@@ -67,11 +62,6 @@ fun Route.sessionRouting(jwtAuth: JWTAuth, userAuthenticationQuery: UserAuthenti
         }
     }
     // TODO: session invalidation
-//    static(".well-known") {
-//        staticRootFolder = File("certs")
-//        file("jwks.json")
-//    }
-//    staticFiles(remotePath = ".well-known", dir = File("/Users/fszuberski/code/food-delivery/backend/user/src/main/resources/certs"))
     staticFiles(
         remotePath = ".well-known",
         dir = File(object {}.javaClass.getResource("/certs")?.path ?: "")
