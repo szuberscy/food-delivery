@@ -9,7 +9,7 @@ import org.koin.ktor.ext.get
 fun main(args: Array<String>) = EngineMain.main(args)
 
 fun Application.module() {
-    configureKoin(listOf(appModule))
+    configureKoin(listOf(appModule(environment)))
     configureSerialization()
     configureAuthentication(get<JWTAuth>())
     configureRouting()

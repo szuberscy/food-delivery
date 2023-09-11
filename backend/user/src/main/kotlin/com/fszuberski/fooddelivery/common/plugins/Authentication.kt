@@ -12,7 +12,7 @@ fun Application.configureAuthentication(jwtAuth: JWTAuth) {
 
     install(Authentication) {
         jwt(jwtAuth.name) {
-            realm = jwtAuth.myRealm
+            realm = jwtAuth.realm
             verifier(jwtAuth.jwkProvider, jwtAuth.issuer) {
                 acceptLeeway(3)
             }

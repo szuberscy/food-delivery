@@ -5,7 +5,7 @@ import io.ktor.server.application.*
 import org.koin.core.module.Module
 import org.koin.ktor.plugin.Koin
 
-fun Application.configureKoin(modules: List<Module> = listOf(appModule)) {
+fun Application.configureKoin(modules: List<Module> = listOf(appModule(environment))) {
    install(Koin) {
        modules(modules)
    }

@@ -37,9 +37,10 @@ fun Route.sessionRouting(jwtAuth: JWTAuth, userAuthenticationQuery: UserAuthenti
                             val authenticationResult =
                                 userAuthenticationQuery.getAuthenticationResult(username, password)
 
-                            val publicKey = jwtAuth.jwkProvider.get("6f8856ed-9189-488f-9011-0ff4b6c08edc").publicKey
+                            val publicKey = jwtAuth.jwkProvider.get(jwtAuth.kid).publicKey // todo - create method in jwtauth for this
 //                            val publicKey = jwtAuth.publicKey
-                            val keySpecPKCS8 = PKCS8EncodedKeySpec(Base64.getDecoder().decode(jwtAuth.privateKey))
+//                            val keySpecPKCS8 = PKCS8EncodedKeySpec(Base64.getDecoder().decode(jwtAuth.privateKey))
+                            val keySpecPKCS8 = PKCS8EncodedKeySpec(jwtAuth.privateKey.toByteArray())
                             val privateKey = KeyFactory.getInstance("RSA").generatePrivate(keySpecPKCS8)
                             val token = JWT.create()
                                 .withAudience(jwtAuth.audience)
