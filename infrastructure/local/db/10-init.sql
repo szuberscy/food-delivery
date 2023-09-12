@@ -1,0 +1,2 @@
+CREATE USER fd_user WITH PASSWORD '123Password';
+CREATE DATABASE users OWNER fd_user;

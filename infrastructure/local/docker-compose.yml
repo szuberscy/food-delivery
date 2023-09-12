@@ -65,5 +65,18 @@ services:
       schema-registry:
         condition: service_healthy
 
+  postgres:
+    image: postgres:15.4-alpine
+    ports:
+      - "5432:5432"
+    restart: always
+    volumes:
+      - ./db:/docker-entrypoint-initdb.d/:ro
+    healthcheck:
+      test: ["CMD", "pg_isready", "-q", "-d", "postgres", "-U", "root"]
+      timeout: 30s
+      interval: 3s
+      retries: 10
+
 networks:
   food-delivery:
