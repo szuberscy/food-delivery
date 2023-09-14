@@ -19,9 +19,14 @@ class Configuration(private val config: Config) {
 
     fun getLong(key: String) = config.getLong(key)
 
+
     fun getConfiguration(key: String) =
         Configuration(config.getConfig(key))
 
     fun getConfigurationList(key: String) =
         config.getConfigList(key).map { Configuration(it) }
+
+    fun getConfigurationMap() = config.root()
+        .entries
+        .associate { it.key to getConfiguration(it.key) }
 }
