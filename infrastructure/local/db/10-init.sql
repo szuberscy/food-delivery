@@ -1,1 +1,2 @@
-CREATE USER dbmigrate WITH LOGIN SUPERUSER PASSWORD 'password';
+create user dbmigrate with login superuser password 'password';
+create database dbmigrate owner dbmigrate;
