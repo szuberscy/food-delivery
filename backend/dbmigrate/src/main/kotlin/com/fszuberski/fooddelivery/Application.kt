@@ -2,7 +2,8 @@ package com.fszuberski.fooddelivery
 
 import io.github.oshai.kotlinlogging.KotlinLogging
 import org.flywaydb.core.Flyway
-import org.flywaydb.core.internal.configuration.ConfigUtils
+import org.flywaydb.core.internal.configuration.ConfigUtils.LOCATIONS
+import org.flywaydb.core.internal.configuration.ConfigUtils.TABLE
 
 private val log = KotlinLogging.logger {}
 
@@ -45,8 +46,8 @@ private fun maintain(key: String, config: Configuration) {
         .loggers("slf4j")
         .dataSource(url, username, password)
         .configuration(mapOf(
-            ConfigUtils.LOCATIONS to "db/$key/maintenance",
-            ConfigUtils.TABLE to "${key}__flyway_schema_history"
+            LOCATIONS to "db/$key/maintenance",
+            TABLE to "${key}__flyway_schema_history"
         ))
         .also { log.info { "Loading Flyway instance for $key" } }
         .load()
@@ -65,7 +66,7 @@ private fun migrate(key: String, config: Configuration) {
     Flyway.configure()
         .loggers("slf4j")
         .dataSource(url, username, password)
-        .configuration(mapOf(ConfigUtils.LOCATIONS to "db/$key/migration"))
+        .configuration(mapOf(LOCATIONS to "db/$key/migration"))
         .also { log.info { "Loading Flyway instance for $key" } }
         .load()
         .also {
