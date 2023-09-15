@@ -11,7 +11,7 @@ import io.ktor.server.response.*
 import kotlinx.coroutines.runBlocking
 import org.slf4j.event.Level
 
-internal val log = KotlinLogging.logger {}
+private val log = KotlinLogging.logger {}
 
 val HttpLogging = createApplicationPlugin("HttpLogging", ::HttpLoggingConfig) {
     val (
@@ -84,9 +84,9 @@ private suspend fun ApplicationCall.print(include: Include, format: Format) =
     }
 
 data class HttpLoggingConfig(
-    val level: Level = Level.INFO,
-    val format: Format = Format.CONCISE,
-    val include: Include = Include()
+    var level: Level = Level.INFO,
+    var format: Format = Format.CONCISE,
+    var include: Include = Include()
 )
 
 data class Include(

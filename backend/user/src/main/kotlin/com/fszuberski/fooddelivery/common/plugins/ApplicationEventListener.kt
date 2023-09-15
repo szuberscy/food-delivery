@@ -5,7 +5,6 @@ import io.ktor.server.application.hooks.*
 
 val ApplicationEventListener = createApplicationPlugin("ApplicationEventListener", ::ApplicationEventListenerConfig) {
     val (
-        starting,
         started,
         ready,
         stopPreparing,
@@ -13,7 +12,6 @@ val ApplicationEventListener = createApplicationPlugin("ApplicationEventListener
         stopped
     ) = pluginConfig
 
-    on(MonitoringEvent(ApplicationStarting)) { starting() }
     on(MonitoringEvent(ApplicationStarted)) { started() }
     on(MonitoringEvent(ServerReady)) { ready() }
     on(MonitoringEvent(ApplicationStopPreparing)) { stopPreparing() }
@@ -22,10 +20,9 @@ val ApplicationEventListener = createApplicationPlugin("ApplicationEventListener
 }
 
 data class ApplicationEventListenerConfig(
-    val starting: () -> Unit = {},
-    val started: () -> Unit = {},
-    val ready: () -> Unit = {},
-    val stopPreparing: () -> Unit = {},
-    val stopping: () -> Unit = {},
-    val stopped: () -> Unit = {}
+    var started: () -> Unit = {},
+    var ready: () -> Unit = {},
+    var stopPreparing: () -> Unit = {},
+    var stopping: () -> Unit = {},
+    var stopped: () -> Unit = {}
 )
