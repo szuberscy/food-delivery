@@ -9,6 +9,7 @@ val arrow_version: String by project
 val avro_version: String by project
 val avro_serializer_version: String by project
 val kafka_version: String by project
+val postgres_jdbc_driver_version: String by project
 val kotlinlogging_version: String by project
 
 plugins {
@@ -73,6 +74,9 @@ dependencies {
     implementation("io.github.oshai:kotlin-logging-jvm:$kotlinlogging_version")
     implementation("io.insert-koin:koin-core:$koin_version")
     implementation("io.insert-koin:koin-ktor:$koin_version")
+    implementation("org.postgresql:postgresql:$postgres_jdbc_driver_version")
+    implementation("org.jdbi:jdbi3-core:3.41.1")
+    implementation("org.jdbi:jdbi3-kotlin:3.41.1")
     implementation("io.arrow-kt:arrow-core:$arrow_version")
     implementation("io.arrow-kt:arrow-fx-coroutines:$arrow_version")
     implementation("commons-validator:commons-validator:1.7")
