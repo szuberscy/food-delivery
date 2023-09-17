@@ -7,4 +7,4 @@ interface SaveUserPort {
     fun save(userRegistration: UserRegistration): UUID
 }
 
-class UserWithEmailExists(message: String = "user with email exists") : Exception(message)
+class UserWithEmailExists(message: String = "user with email exists", cause: Throwable? = null) : Exception(message, cause)

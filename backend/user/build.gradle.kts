@@ -77,6 +77,7 @@ dependencies {
     implementation("org.postgresql:postgresql:$postgres_jdbc_driver_version")
     implementation("org.jdbi:jdbi3-core:3.41.1")
     implementation("org.jdbi:jdbi3-kotlin:3.41.1")
+    implementation("com.zaxxer:HikariCP:5.0.1")
     implementation("io.arrow-kt:arrow-core:$arrow_version")
     implementation("io.arrow-kt:arrow-fx-coroutines:$arrow_version")
     implementation("commons-validator:commons-validator:1.7")
