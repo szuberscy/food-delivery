@@ -1,20 +1,22 @@
 package com.fszuberski.fooddelivery.user.session.core.service
 
-import com.fszuberski.fooddelivery.user.session.core.model.AuthenticationResult
+import com.fszuberski.fooddelivery.user.session.core.domain.AuthDetails
 import com.fszuberski.fooddelivery.user.session.port.`in`.InvalidCredentials
 import com.fszuberski.fooddelivery.user.session.port.`in`.UserAuthenticationQuery
+import com.fszuberski.fooddelivery.user.session.port.out.GetAuthDetailsPort
 import org.mindrot.jbcrypt.BCrypt
 
-class UserAuthService: UserAuthenticationQuery {
+class UserAuthService(
+    private val getAuthDetailsPort: GetAuthDetailsPort
+) : UserAuthenticationQuery {
 
-    override fun getAuthenticationResult(username: String, password: String): AuthenticationResult {
-        // TODO: retrieve user details from db
-        val authDetails = AuthenticationResult("username", BCrypt.hashpw("123password", BCrypt.gensalt()) )
+    override fun getAuthenticationResult(username: String, password: String): AuthDetails {
+        val authDetails = getAuthDetailsPort.getByUsername(username)
 
-        if (!BCrypt.checkpw(password, authDetails.passwordHash)) {
-            throw InvalidCredentials()
+        authDetails?.let {
+            if (BCrypt.checkpw(password, authDetails.passwordHash)) return authDetails
         }
 
-        return authDetails
+        throw InvalidCredentials()
     }
 }

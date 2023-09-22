@@ -6,7 +6,9 @@ import com.fszuberski.fooddelivery.user.registration.port.out.UserWithEmailExist
 import org.jdbi.v3.core.Jdbi
 import java.util.*
 
-class UserPersistenceAdapter(val jdbi: Jdbi) : SaveUserPort {
+class UserRegistrationPersistenceAdapter(
+    private val jdbi: Jdbi
+) : SaveUserPort {
 
     override fun save(userRegistration: UserRegistration): UUID {
         val uuid = UUID.randomUUID()
@@ -14,10 +16,9 @@ class UserPersistenceAdapter(val jdbi: Jdbi) : SaveUserPort {
             jdbi.withExceptionTranslatingHandle<Unit, Exception> { handle ->
                 handle.createUpdate(
                     """
-                        insert into users(id, email, name, surname, password_hash)
-                        values (:id, :email, :name, :surname, :password_hash)
-                    """
-                        .trimIndent()
+                    insert into users(id, email, name, surname, password_hash)
+                    values (:id, :email, :name, :surname, :password_hash)
+                    """.trimIndent()
                 )
                     .bind("id", uuid)
                     .bind("email", userRegistration.email)
