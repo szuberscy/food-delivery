@@ -40,7 +40,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/UserRegistrationResponse"
               example:
-                id: 84301a15-0d9e-4fee-8b92-c3efa97b5fc9
+                id: "84301a15-0d9e-4fee-8b92-c3efa97b5fc9"
         "400":
           description: "Bad Request"
           content:
@@ -72,6 +72,28 @@ paths:
           $ref: "#/components/responses/415_UnsupportedMediaType"
         "500":
           $ref: "#/components/responses/500_InternalServerError"
+  /v1/session:
+    post:
+      description: |
+        Creates a new user session.
+      requestBody:
+        content:
+          'application/json':
+            schema:
+              $ref: "#/components/schemas/CreateSessionRequest"
+            example:
+              username: matt@gov.co.uk
+              password: 5tr0NGp@s$wo_rD
+        required: true
+      responses:
+        "201":
+          description: "Created"
+          content:
+            'application/json':
+              schema:
+                $ref: "#/components/schemas/CreateSessionResponse"
+              example:
+                token: "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiIvIiwiaXNzIjoiaHR0cDovLzAuMC4wLjA6ODA4MSIsInVzZXJuYW1lIjoibWVAZ21haWwuY29tIiwiZXhwIjoxNjk1NDE5MTYxfQ.ARAhmTDISq0k6xKFdQaMzJKdoqa54hrGZmneLM-dbuPFN8Awsrb8hcwvDL8HJJCk1RKzcgUQqcPi0Cy-oVgfWA"
 components:
   responses:
     415_UnsupportedMediaType:
@@ -79,6 +101,23 @@ components:
     500_InternalServerError:
       description: "Internal Server Error"
   schemas:
+    CreateSessionRequest:
+      type: "object"
+      properties:
+        username:
+          type: "string"
+        password:
+          type: "string"
+      required:
+        - username
+        - password
+    CreateSessionResponse:
+      type: object
+      properties:
+        token:
+          type: "string"
+      required:
+        - token
     UserRegistrationRequest:
       type: "object"
       properties:
