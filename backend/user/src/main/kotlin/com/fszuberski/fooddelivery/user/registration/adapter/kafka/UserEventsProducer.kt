@@ -6,6 +6,8 @@ import com.fszuberski.fooddelivery.user.registration.port.out.ProduceUserCreated
 import io.github.oshai.kotlinlogging.KotlinLogging
 import org.apache.kafka.clients.producer.ProducerRecord
 import org.apache.kafka.clients.producer.RecordMetadata
+import java.time.LocalDate
+import java.time.LocalDateTime
 import java.util.*
 
 private val log = KotlinLogging.logger {}
@@ -17,7 +19,7 @@ class UserEventsProducer : ProduceUserCreatedPort {
         // Could be cached so we don't reestablish connections.
         Configuration.producer().use { producer ->
             try {
-                val userCreatedEvent = UserCreatedEvent(userId.toString(), userRegistration.name, userRegistration.surname)
+                val userCreatedEvent = UserCreatedEvent(userId.toString(), userRegistration.name, userRegistration.surname, userRegistration.email, LocalDateTime.now().toString())
                 producer.send(
                     ProducerRecord(TOPIC_NAME, userId.toString(), userCreatedEvent)
                 ) { meta: RecordMetadata, e: Exception? ->
