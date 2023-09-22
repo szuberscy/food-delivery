@@ -14,8 +14,9 @@ class UserPersistenceAdapter(val jdbi: Jdbi) : SaveUserPort {
             jdbi.withExceptionTranslatingHandle<Unit, Exception> { handle ->
                 handle.createUpdate(
                     """
-                        insert into users(id, email, name, surname, password_hash) 
-                        values (:id, :email, :name, :surname, :password_hash)"""
+                        insert into users(id, email, name, surname, password_hash)
+                        values (:id, :email, :name, :surname, :password_hash)
+                    """
                         .trimIndent()
                 )
                     .bind("id", uuid)
@@ -26,7 +27,6 @@ class UserPersistenceAdapter(val jdbi: Jdbi) : SaveUserPort {
                     .execute()
             }
         } catch (e: Exception) {
-            e.printStackTrace()
             when (e) {
                 // naive mapping; no other unique violation can exist for table
                 is UniqueViolation -> throw UserWithEmailExists(cause = e)
